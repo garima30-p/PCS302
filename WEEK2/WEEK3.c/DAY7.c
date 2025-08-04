@@ -36,6 +36,20 @@ void push(struct stack *st,int n){
 
     }
 }
+int pop(struct stack *st){
+    int x;
+    if(st->top==-1){
+        printf("stack underflow");
+        return 0;
+    }
+    else{
+        x=st->s[st->top];
+        st->top--;
+        
+    }
+    return x;
+
+}
 
 int main(){
     struct stack s;
@@ -51,6 +65,9 @@ int main(){
         scanf("%d",&x);
         push(&s,x);
     }
+    int y=pop(&s);
+    printf("deleted %d",y);
+
     
     
     return 0;
