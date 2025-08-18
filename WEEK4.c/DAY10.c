@@ -1,3 +1,4 @@
+//code to reverse a string using stack:
 #include <stdio.h>
 #include <stdlib.h>
 struct stack
@@ -37,22 +38,23 @@ void push(struct stack(*st), char n)
     {
         (st)->top++;
         (st)->s[(st)->top] = n;
-        printf("\ninserted %c", n);
+        
     }
 }
-void pop(struct stack(*st))
+int pop(struct stack(*st))
 {
     char x = '\0';
     if ((st)->top == -1)
     {
         printf("stack underflow\n");
-        return;
+        return 0;
     }
     else
     {
         x = (st)->s[(st)->top];
         (st)->top--;
-        printf("deleted %c\n", x);
+        return x;
+        
     }
 }
 int isempty(struct stack(*st))
@@ -68,46 +70,28 @@ int main()
     struct stack *st = (struct stack *)malloc(sizeof(struct stack));
     create(&st);
 
-    int u, i, t = 0, p = 0;
+    int u,x, i, t = 0, p = 0;
     char ch[100];
 
-    printf("enter only balanced or unbalanced paranthesises:");
+    printf("enter your string to be rev:");
     getchar();
     fgets(ch, sizeof(ch), stdin);
-    for (i = 0; ch[i] != '\0'; i++)
+    for ( i = 0; ch[i]!=0; i++)
     {
-        if (ch[i] == '{' || ch[i] == '[' || ch[i] == '(')
+       push(st,ch[i]);
+    }
+   
+        for ( int j = 0; ch[j]!='\0'; j++)
         {
-            push(st, ch[i]);
+            x=pop(st);
+            ch[j]=x;
         }
-        else
-            break;
-    }
+        
+       
+   
+    puts(ch);
 
-    if (isempty(st))
-    {
-        printf("not valid paran..");
-    }
-    else
-    {
-        while (ch[i])
-        {
-            if (st->s[st->top] == '{' && ch[i] == '}' || st->s[st->top] == '[' && ch[i] == ']' || st->s[st->top] == '(' && ch[i] == ')')
-            {
-                pop(st);
-            }
-            else
-                break;
-
-            i++;
-        }
-        if ((st->top) == -1)
-            printf("\n=== balanced ===\n");
-        else
-            printf("\n=== unbalanced ===\n");
-    }
-
-    free(st->s);  
+       free(st->s);  
     free(st);     
 
 }

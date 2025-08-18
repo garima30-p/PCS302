@@ -69,6 +69,8 @@ int main()
     create(&st);
 
     int u, i, t = 0, p = 0;
+    int k=0;
+    int max;
     char ch[100];
 
     printf("enter only balanced or unbalanced paranthesises:");
@@ -76,36 +78,39 @@ int main()
     fgets(ch, sizeof(ch), stdin);
     for (i = 0; ch[i] != '\0'; i++)
     {
-        if (ch[i] == '{' || ch[i] == '[' || ch[i] == '(')
-        {
-            push(st, ch[i]);
-        }
-        else
-            break;
+        push(st, ch[i]);
+       
     }
 
     if (isempty(st))
     {
         printf("not valid paran..");
     }
-    else
-    {
+    else{
         while (ch[i])
         {
-            if (st->s[st->top] == '{' && ch[i] == '}' || st->s[st->top] == '[' && ch[i] == ']' || st->s[st->top] == '(' && ch[i] == ')')
-            {
-                pop(st);
-            }
-            else
-                break;
-
-            i++;
-        }
+           
         if ((st->top) == -1)
             printf("\n=== balanced ===\n");
         else
             printf("\n=== unbalanced ===\n");
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+          printf("length of the longest valid paranthesis %d",max);
+    
 
     free(st->s);  
     free(st);     
