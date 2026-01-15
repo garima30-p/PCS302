@@ -7,7 +7,7 @@ struct stack{
 };
 void createnew(struct stack **st){
   printf("enter the size of the stacks: ");
-  scanf("%d",&(*st)->size);
+  scanf("%d",&((*st)->size));
   (*st)->arr=(int*)malloc(sizeof(int)*(*st)->size);
     (*st)->top1=-1;
     (*st)->top2=(*st)->size;
@@ -55,6 +55,65 @@ int pop2(struct stack **st){
 
 }
 int main(){
-    
+    int  t;
+    printf("enter the number of test cases:");
+    scanf("%d",&t);
+    while(t--){
+    struct  stack *st=(struct stack*)malloc(sizeof(struct stack));
+    createnew(&st);
+    int choice,num,val;
+    printf(" Press:\n1 to push in stack 1\n2 to pop from stack 1\n3 to push in stack 2\n4 to pop from stack 2\n5 to exit");
+
+    switch (choice)
+    {
+    case 1:
+        printf("enter the number of elements to push in stack 1: ");
+        scanf("%d",&num);
+        for (int i = 0; i < num; i++)
+        {
+            printf("enter the %d value:",i+1);
+            push1(&st,val);
+        }
+        
+        break;
+    case 2:
+        printf("enter the number of elements to push in stack 1: ");
+        scanf("%d",&num);
+        for (int i = 0; i < num; i++)
+        {
+            pop1(&st);
+        }
+        
+        break;
+    case 3:
+        printf("enter the number of elements to push in stack 2: ");
+        scanf("%d",&num);
+        for (int i = 0; i < num; i++)
+        {
+            printf("enter the %d value:",i+1);
+            push2(&st,val);
+        }
+        
+        break;
+    case 4:
+        printf("enter the number of elements to push in stack 1: ");
+        scanf("%d",&num);
+        for (int i = 0; i < num; i++)
+        {
+            pop2(&st);
+        }
+        
+        break;
+    case 5:
+        printf("exiting..");
+        free(st);
+        break;
+        
+    default:
+        break;
+    }
+    free(st);
+   
+    }
     return 0;
 }

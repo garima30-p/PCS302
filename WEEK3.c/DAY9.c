@@ -21,10 +21,10 @@ void display(struct stack *st)
         printf("the element st %d index is %c\n", i, (st)->s[i]);
     }
 }
-void size(struct stack *(*st))
+void size(struct stack (*st))
 {
 
-    printf("the size of stack is:%d\n", (*st)->size);
+    printf("the size of stack is:%d\n", (st)->size);
 }
 void push(struct stack(*st), char n)
 {
@@ -64,55 +64,61 @@ int isempty(struct stack(*st))
 }
 
 int main()
-{
+{ 
+    int max=0;
     struct stack *st = (struct stack *)malloc(sizeof(struct stack));
     create(&st);
 
-    int u, i, t = 0, p = 0;
-    int k=0;
-    int max;
     char ch[100];
-
-    printf("enter only balanced or unbalanced paranthesises:");
-    getchar();
+    printf("Enter only balanced or unbalanced parentheses: ");
+    getchar(); 
     fgets(ch, sizeof(ch), stdin);
-    for (i = 0; ch[i] != '\0'; i++)
+
+    for (int j = 0; ch[j] != '\0'; j++)
     {
-        push(st, ch[i]);
-       
+        if (ch[j] == '(' || ch[j] == '{' || ch[j] == '[')
+        {
+            push(st, ch[j]);
+        }
+        else if (ch[j] == ')' || ch[j] == '}' || ch[j] == ']')
+        {
+            if (isempty(st))
+            {
+                printf("\n=== Unbalanced ===\n");
+                free(st->s);
+                free(st);
+                return 0;
+            }
+
+            char topChar = st->s[st->top];
+            if ((ch[j] == ')' && topChar == '(') ||
+                (ch[j] == '}' && topChar == '{') ||
+                (ch[j] == ']' && topChar == '['))
+            {
+                pop(st);
+                max++;
+            }
+            
+            else
+            {
+                printf("\n=== Unbalanced ===\n");
+                
+                free(st->s);
+                free(st);
+                return 0;
+            }
+        }
     }
 
     if (isempty(st))
-    {
-        printf("not valid paran..");
-    }
-    else{
-        while (ch[i])
-        {
-           
-        if ((st->top) == -1)
-            printf("\n=== balanced ===\n");
-        else
-            printf("\n=== unbalanced ===\n");
-    }
-    
+        printf("\n=== Balanced ===\n");
+    else
+        printf("\n=== Unbalanced ===\n");
 
+   
+    printf("Length of the longest valid parentheses: %d",max*2);
 
-
-
-
-
-
-
-
-
-
-
-
-          printf("length of the longest valid paranthesis %d",max);
-    
-
-    free(st->s);  
-    free(st);     
-
+    free(st->s);
+    free(st);
+    return 0;
 }

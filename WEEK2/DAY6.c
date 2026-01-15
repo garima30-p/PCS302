@@ -1,54 +1,33 @@
 #include <stdio.h>
 
-#include <stdio.h>
-
 #define MAX 100
 
-void rotateClockwise(int matrix[MAX][MAX], int n) {
-    // Step 1: Transpose the matrix
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
-            int temp = matrix[i][j];
-            matrix[i][j] = matrix[j][i];
-            matrix[j][i] = temp;
-        }
-    }
-
-    // Step 2: Reverse each row
-    for (int i = 0; i < n; i++) {
-        for (int j = 0, k = n - 1; j < k; j++, k--) {
-            int temp = matrix[i][j];
-            matrix[i][j] = matrix[i][k];
-            matrix[i][k] = temp;
-        }
-    }
-}
-
 int main() {
+    int t;
+    scanf("%d",&t);
+    while(t--){
     int n;
-    int matrix[MAX][MAX];
+    int matrix[MAX][MAX], rotated[MAX][MAX];
 
-    printf("enter the rows/columns:");
+    
     scanf("%d", &n);
 
-    // Input matrix
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            printf("enter element %d%d:",i,j);
+ 
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
             scanf("%d", &matrix[i][j]);
-        }
-        
-    }
 
-    
-    rotateClockwise(matrix, n);
+   
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            rotated[j][n - 1 - i] = matrix[i][j];
 
-    
+ 
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            printf("%d ", matrix[i][j]);
-        }
+        for (int j = 0; j < n; j++)
+            printf("%d ", rotated[i+3][j+3]);
         printf("\n");
+    }
     }
 
     return 0;
